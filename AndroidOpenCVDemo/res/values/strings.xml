@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AndroidOpenCVDemo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="num1">num1</string>
+    <string name="num2">num2</string>
+    <string name="num_add">+</string>
+    <string name="num_equ">=</string>
+    <string name="num_result">result</string>
+
+</resources>
