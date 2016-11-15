@@ -82,37 +82,37 @@ public class CameraActivity extends Activity {
 				System.loadLibrary("opencv_java3");
 				// System.loadLibrary("detection_based_tracker");
 
-				try {
-					// load cascade file from application resources
-					InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
-					File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-					mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
-					FileOutputStream os = new FileOutputStream(mCascadeFile);
-
-					byte[] buffer = new byte[4096];
-					int bytesRead;
-					while ((bytesRead = is.read(buffer)) != -1) {
-						os.write(buffer, 0, bytesRead);
-					}
-					is.close();
-					os.close();
-
-					mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
-					if (mJavaDetector.empty()) {
-						Log.e(TAG, "Failed to load cascade classifier");
-						mJavaDetector = null;
-					} else
-						Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
-
-					mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
-					mDetectionBased = new DetectionBased();
-
-					cascadeDir.delete();
-
-				} catch (IOException e) {
-					e.printStackTrace();
-					Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
-				}
+//				try {
+//					// load cascade file from application resources
+//					InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
+//					File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+//					mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+//					FileOutputStream os = new FileOutputStream(mCascadeFile);
+//
+//					byte[] buffer = new byte[4096];
+//					int bytesRead;
+//					while ((bytesRead = is.read(buffer)) != -1) {
+//						os.write(buffer, 0, bytesRead);
+//					}
+//					is.close();
+//					os.close();
+//
+//					mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+//					if (mJavaDetector.empty()) {
+//						Log.e(TAG, "Failed to load cascade classifier");
+//						mJavaDetector = null;
+//					} else
+//						Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
+//
+//					mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
+//					mDetectionBased = new DetectionBased();
+//
+//					cascadeDir.delete();
+//
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//					Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
+//				}
 
 				mCameraContainer.enableView();
 			}
@@ -154,7 +154,7 @@ public class CameraActivity extends Activity {
 		@Override
 		public void onCameraViewStarted(int width, int height) {
 			mRgba = new Mat();
-			mGray = new Mat();
+//			mGray = new Mat();
 			Log.i(TAG, "CvCameraViewListener2: width= " + width + " ,height= " + height);
 		}
 
@@ -164,9 +164,9 @@ public class CameraActivity extends Activity {
 			if (mRgba != null) {
 				mRgba.release();
 			}
-			if (mGray != null) {
-				mGray.release();
-			}
+//			if (mGray != null) {
+//				mGray.release();
+//			}
 		}
 
 		/**
@@ -180,7 +180,7 @@ public class CameraActivity extends Activity {
 			// 这里是屏幕上的每一帧的数据，请在这里处理图像
 
 			mRgba = inputFrame.rgba();
-			mGray = inputFrame.gray();
+//			mGray = inputFrame.gray();
 			
 			/*String str = new String();
 			for(int i =0;i<location.length;i++){
@@ -269,7 +269,7 @@ public class CameraActivity extends Activity {
 		super.onResume();
 		if (!OpenCVLoader.initDebug()) {
 			Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
-			OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, mLoaderCallback);
+			OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_1_0, this, mLoaderCallback);
 		} else {
 			Log.d(TAG, "OpenCV library found inside package. Using it!");
 			mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
