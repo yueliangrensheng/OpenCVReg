@@ -105,7 +105,7 @@ public class CameraActivity extends Activity {
 //						Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
 //
 //					mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
-//					mDetectionBased = new DetectionBased();
+					mDetectionBased = new DetectionBased();
 //
 //					cascadeDir.delete();
 //
