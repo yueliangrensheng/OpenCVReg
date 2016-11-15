@@ -1,8 +1,5 @@
 package com.diwen.android.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -25,32 +22,5 @@ public class BitmapUtil {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	public static boolean saveBitmap(Bitmap b, String absolutePath) {
-		return saveBitmap(b, absolutePath, 100);
-	}
-
-	public static boolean saveBitmap(Bitmap b, String absolutePath, Bitmap.CompressFormat format) {
-		return saveBitmap(b, absolutePath, 100, format);
-	}
-
-	public static boolean saveBitmap(Bitmap b, String absolutePath, int quality) {
-		return saveBitmap(b, absolutePath, quality, Bitmap.CompressFormat.JPEG);
-	}
-
-	public static boolean saveBitmap(Bitmap b, String absolutePath, int quality, Bitmap.CompressFormat format) {
-		String fileName = absolutePath;
-		File f = new File(fileName);
-		try {
-			f.createNewFile();
-			FileOutputStream fOut = new FileOutputStream(f);
-			b.compress(format, quality, fOut);
-			fOut.flush();
-			fOut.close();
-			return true;
-		} catch (Exception e) {
-		}
-		return false;
 	}
 }

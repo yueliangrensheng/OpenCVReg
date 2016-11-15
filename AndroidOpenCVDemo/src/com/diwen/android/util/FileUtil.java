@@ -26,7 +26,7 @@ public class FileUtil {
     public static File updateDir = null;
     public static File updateFile = null;
 
-    public static final String FOLDER = "DiWenCamera";
+    public static final String FOLDER = "Camera";
 
     /***
      * 创建文件

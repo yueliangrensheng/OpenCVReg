@@ -7,6 +7,8 @@ public class LineData {
 	public float endY;
 	public boolean isEditor;
 	public int editroCount;
+	public int count = 0;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

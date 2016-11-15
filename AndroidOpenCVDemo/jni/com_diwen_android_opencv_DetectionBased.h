@@ -12,7 +12,7 @@ extern "C" {
  * Method:    nativeRecognized
  * Signature: (J)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_diwen_android_opencv_DetectionBased_nativeRecognized
+JNIEXPORT jobjectArray JNICALL Java_com_diwen_android_opencv_DetectionBased_nativeRecognized
   (JNIEnv *, jclass, jlong);
 
 #ifdef __cplusplus

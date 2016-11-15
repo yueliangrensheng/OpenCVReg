@@ -4,9 +4,9 @@ import org.opencv.core.Mat;
 
 public class DetectionBased {
 
-	public String recognized(Mat frame) {
+	public String[] recognized(Mat frame) {
 		return nativeRecognized(frame.getNativeObjAddr());
 	}
 
-	private static native String nativeRecognized(long frameAddr);
+	private static native String[] nativeRecognized(long frameAddr);
 }

@@ -14,8 +14,8 @@
          android:id="@+id/lineView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-    <!-- <com.diwen.android.widget.FocusImageView
+<!-- 
+    <com.diwen.android.widget.FocusImageView
         android:id="@+id/focusImageView"
         android:layout_width="75dip"
         android:layout_height="75dip"

@@ -40,7 +40,7 @@ public class CameraContainer extends FrameLayout implements ICameraOperation, IA
 	/**
 	 * 触摸屏幕时显示的聚焦图案
 	 */
-	private FocusImageView mFocusImageView;
+	//private FocusImageView mFocusImageView;
 	/**
 	 * 缩放控件
 	 */
@@ -82,7 +82,7 @@ public class CameraContainer extends FrameLayout implements ICameraOperation, IA
 		inflate(mContext, R.layout.custom_camera_container, this);
 
 		mCameraView = (JavaCameraView) findViewById(R.id.cameraView);
-//		mFocusImageView = (FocusImageView) findViewById(R.id.focusImageView);
+		//mFocusImageView = (FocusImageView) findViewById(R.id.focusImageView);
 		mZoomSeekBar = (SeekBar) findViewById(R.id.zoomSeekBar);
 
 		mSensorControler = SensorControler.getInstance();
@@ -200,7 +200,9 @@ public class CameraContainer extends FrameLayout implements ICameraOperation, IA
 		}
 		return true;
 	}
-
+	
+		
+	
 	/**
 	 * 两点的距离
 	 */
@@ -238,7 +240,7 @@ public class CameraContainer extends FrameLayout implements ICameraOperation, IA
 				if (!mSensorControler.isFocusLocked()) {
 					if (mCameraView.onFocus(point, autoFocusCallback)) {
 						mSensorControler.lockFocus();
-//						mFocusImageView.startFocus(point);
+						//mFocusImageView.startFocus(point);
 
 						// 播放对焦音效
 						if (mFocusSoundPrepared) {
@@ -284,12 +286,12 @@ public class CameraContainer extends FrameLayout implements ICameraOperation, IA
 		@Override
 		public void onAutoFocus(boolean success, Camera camera) {
 			// 聚焦之后根据结果修改图片
-			if (success) {
-//				mFocusImageView.onFocusSuccess();
+			/*if (success) {
+				mFocusImageView.onFocusSuccess();
 			} else {
 				// 聚焦失败显示的图片，由于未找到合适的资源，这里仍显示同一张图片
-//				mFocusImageView.onFocusFailed();
-			}
+				mFocusImageView.onFocusFailed();
+			}*/
 			mHandler.postDelayed(new Runnable() {
 				@Override
 				public void run() {

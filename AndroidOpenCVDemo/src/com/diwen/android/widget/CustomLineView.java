@@ -20,6 +20,7 @@ public class CustomLineView extends View {
 	
 	private Paint paint;
 	private Paint paintPoint;
+	private Paint paintPointGREEN;
 	private Paint paintEditorPoint;
 	private float startX;
 	private float stopX;
@@ -30,6 +31,7 @@ public class CustomLineView extends View {
 	private List<LineData> lineDatas = new ArrayList<LineData>();
 	private List<LineData> pintLineDatas = new ArrayList<LineData>();
 	private Context context;
+	private int r= 20;
 	public CustomLineView(Context context,float startX,float startY,float stopX,float stopY) {
 		super(context);
 		initPaint();
@@ -53,22 +55,28 @@ public class CustomLineView extends View {
 	private void initPaint(){
 		isliga = false;
 		paint = new Paint();
-		paint.setColor(Color.RED);
+		paint.setColor(Color.YELLOW);
 		paint.setStrokeJoin(Paint.Join.ROUND);    
         paint.setStrokeCap(Paint.Cap.ROUND);    
-        paint.setStrokeWidth(3);  
+        paint.setStrokeWidth(2);  
+     
+        paintPointGREEN = new Paint();
+        paintPointGREEN.setColor(Color.GREEN);
+        paintPointGREEN.setStrokeJoin(Paint.Join.ROUND);    
+        paintPointGREEN.setStrokeCap(Paint.Cap.ROUND);    
+        paintPointGREEN.setStrokeWidth(2);  
         
         paintPoint = new Paint();
-        paintPoint.setColor(Color.GRAY);
+        paintPoint.setColor(Color.YELLOW);
         paintPoint.setStrokeJoin(Paint.Join.ROUND);    
         paintPoint.setStrokeCap(Paint.Cap.ROUND);    
-        paintPoint.setStrokeWidth(10);  
+        paintPoint.setStrokeWidth(6);  
         
         paintEditorPoint = new Paint();
         paintEditorPoint.setColor(Color.RED);
         paintEditorPoint.setStrokeJoin(Paint.Join.ROUND);    
         paintEditorPoint.setStrokeCap(Paint.Cap.ROUND);    
-        paintEditorPoint.setStrokeWidth(10);  
+        paintEditorPoint.setStrokeWidth(6);  
          
 	}
 	 //在这里我们将测试canvas提供的绘制图形方法    
@@ -76,7 +84,7 @@ public class CustomLineView extends View {
     protected void onDraw(Canvas canvas) { 
     	int count = lineDatas.size();
     	for(int i =0;i<lineDatas.size();i++){  //绘制界面连线的点的
-    		paintPoint.reset();//重置  
+    		//paintPoint.reset();//重置  
     		stopX = lineDatas.get(i).startX;
     		stopY = lineDatas.get(i).startY;
     		
@@ -88,7 +96,7 @@ public class CustomLineView extends View {
     			if(i> 0){
 					startX =  lineDatas.get(i-1).startX;
             		startY = lineDatas.get(i-1).startY;
-        			paint.reset();//重置
+        			//paint.reset();//重置
         			canvas.drawLine(startX, startY, stopX, stopY, paint);
     			}/*else if(i == 0 && isliga){
     				startX =  lineDatas.get(count-1).startX;
@@ -120,9 +128,9 @@ public class CustomLineView extends View {
     				float startX2 = startlineData.startX;
         			float startY2  = startlineData.startY;
         			if(startlineData.isEditor){
-        				canvas.drawCircle(startX2, startY2, 20, paintEditorPoint); 
+        				canvas.drawCircle(startX2, startY2, r, paintEditorPoint); 
         			}else{
-        				canvas.drawCircle(startX2, startY2, 20, paintPoint); 
+        				canvas.drawCircle(startX2, startY2, r, paintPointGREEN); 
         			}    	
     			}
     		}
@@ -280,8 +288,10 @@ public class CustomLineView extends View {
     	}
     }
     private LineData startlineData;
-    public void startWork(LineData lineData){
+    public void startWork(int r,LineData lineData){
+    
     	isStart = true;
+    	this.r = r;
     	if(isliga && isStart){
     		if(lineData != null){
             	for(int i = 0;i<pintLineDatas.size();i++){
@@ -291,12 +301,27 @@ public class CustomLineView extends View {
             		
             		float x = lineData.startX;	
             		float y = lineData.startY;	
+            		startlineData = lineData;
             		if((odx<=x+5 && odx>x-5)){
             			if(ody<=y+5 && ody>y-5){
-            				startlineData = pintLineDatas.get(i);
             				pintLineDatas.get(i).isEditor = true;
+            				if(pintLineDatas.get(i).count > 10){
+            					pintLineDatas.get(i).count = 10;
+            				}else{
+            					pintLineDatas.get(i).count ++;
+            				}
+            				if(pintLineDatas.get(i).count >= 2){
+            					startlineData.isEditor = true;
+            				}else{
+            					startlineData.isEditor = false;
+            				}
+            				break;
+            			}else{
+            				startlineData.isEditor = false;
             			}
-            		}
+            		}else{
+        				startlineData.isEditor = false;
+        			}
             	}
             	invalidate(); //重新绘制区域
         	}
@@ -305,5 +330,14 @@ public class CustomLineView extends View {
 	public boolean isFinish() {
 		return isliga;
 	}
-    
+    public void clean(){
+    	if(lineDatas != null)
+    	lineDatas.clear();
+    	if(pintLineDatas != null)
+    	pintLineDatas.clear();
+    	invalidate(); //重新绘制区域
+    	isliga = false;
+    	isStart = false;
+    	startlineData = null;
+    }
 }

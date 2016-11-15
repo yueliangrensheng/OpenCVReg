@@ -22,8 +22,22 @@
 using namespace std;
 using namespace cv;
 
-JNIEXPORT jstring JNICALL Java_com_diwen_android_opencv_DetectionBased_nativeRecognized(
+JNIEXPORT jobjectArray JNICALL Java_com_diwen_android_opencv_DetectionBased_nativeRecognized(
 		JNIEnv * env, jclass, jlong frameAddr) {
+
+	/*jstring      str;
+		jobjectArray args = 0;
+		jsize        len = 5;
+		const char* sa[] = { "Hello,", "world!", " JNI", " is", " fun" };
+
+
+		args = (env)->NewObjectArray(len, (env)->FindClass("java/lang/String"), 0);
+		for(int i = 0; i < len; i++)
+		    {
+		        str = (env)->NewStringUTF(sa[i]);
+		        (env)->SetObjectArrayElement(args, i, str);
+		    }
+		 return args;*/
 
 	LOGD(
 			"Java_com_diwen_android_opencv_DetectionBased_nativeRecognized START");
@@ -32,93 +46,101 @@ JNIEXPORT jstring JNICALL Java_com_diwen_android_opencv_DetectionBased_nativeRec
 
 	// frameAddr -->Mat
 	Mat frame =*((Mat*)frameAddr);
-	int kvalue = 15; //双边滤波邻域大小
-	char code = (char) -1;
 
-//	frame = imread("c2.jpg");
+	 Mat roi,imgHSV,imgROI;
 
-	Mat frame2 = frame.clone();
+	      cvtColor(frame, frame, COLOR_RGBA2BGR);
 
-	Mat src_gray; //彩色图像转化成灰度图
-	cvtColor(frame, src_gray, COLOR_BGR2GRAY);
+			   cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
-	Mat bf; //对灰度图像进行双边滤波
-	bilateralFilter(src_gray, bf, kvalue, kvalue * 2, kvalue / 2);
+			   Mat imgThresholded;
+			   inRange(imgHSV, Scalar(70, 50, 70), Scalar(90, 255, 220), imgThresholded); //Threshold the image
 
-	vector<Vec3f> circles; //声明一个向量，保存检测出的圆的圆心坐标和半径
-	HoughCircles(bf, circles, CV_HOUGH_GRADIENT, 1.5, 20, 130, 38, 10, 50); //霍夫变换检测圆
+
+
+				frame.copyTo(roi,imgThresholded);
+	 		   Mat src_gray;//彩色图像转化成灰度图
+			   cvtColor(roi, src_gray, COLOR_BGR2GRAY);
+
+
+
+	// 		   Mat bf;//对灰度图像进行双边滤波
+	// 		   bilateralFilter(src_gray, bf, kvalue, kvalue*2, kvalue/2);
+
+			   vector<Vec3f> circles;//声明一个向量，保存检测出的圆的圆心坐标和半径
+			   HoughCircles(src_gray, circles, CV_HOUGH_GRADIENT, 1.5, 20, 130, 38, 5, src_gray.rows/5);//霍夫变换检测圆
+
+
 
 	/*******************************去掉误检测的圆*************************************/
-	Mat res, roi, imgHSV, imgROI;
-	int radius;
+			   int radius;
+			   vector<Vec3f> circles_result(500,0);
+			   int j=0;
+			   int highCount;
+			   float S;
 
-	res = Mat::zeros(frame.size(), frame.type()); //提取出的图像部分
-	roi = Mat::zeros(frame.size(), CV_8UC1); //遮罩位置
+			   char result[1000];
+			   string sresult;
+			   int location_count=0;
 
-	vector<Vec3f> circles_result(50, 0);
-	int j = 0;
-	int highCount;
 
-	for (size_t i = 0; i < circles.size(); i++) //circles.size(); i++)
-			{
-		Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
-		radius = cvRound(circles[i][2]);
+			   for(int k=0;k<1000;k++)
+				   result[k]=0;
 
-		roi = 0;
-		res = 0;
-		highCount = 0;
-		/* 画出ROI 形状 */
-		circle(roi, center, radius, //半径
-				CV_RGB(255, 255, 255), -1, //厚度，可以按照半径的厚度计算
-				8, 0);
+			   for(size_t i = 0; i < circles.size();i++)//circles.size(); i++)
+			   {
+				   Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+				   radius = cvRound(circles[i][2]);
 
-		Rect selection;
-		selection.x = MAX(center.x - radius, 0);
-		selection.y = MAX(center.y - radius, 0);
-		selection.width = radius * 2;
-		selection.height = radius * 2;
-		selection &= Rect(0, 0, frame.cols, frame.rows);
+				   Rect selection;
+				   selection.x = MAX(center.x-radius, 0);
+				   selection.y = MAX(center.y-radius, 0);
+				   selection.width = radius*2;
+				   selection.height = radius*2;
+				   selection &= Rect(0, 0, frame.cols, frame.rows);
 
-		frame.copyTo(res, roi);
-		imgROI = res(selection);
-		cvtColor(imgROI, imgHSV, COLOR_BGR2HSV);
+				   imgROI=imgHSV(selection);
 
-		Mat imgThresholded;
-		inRange(imgHSV, Scalar(1, 60, 90), Scalar(12, 140, 200),
-				imgThresholded); //Threshold the image
-		highCount = cv::countNonZero(imgThresholded);
+				   Mat imgThresholded2;
+				   inRange(imgROI, Scalar(70, 50, 70), Scalar(90, 255, 220), imgThresholded2); //Threshold the image
+				   highCount = cv::countNonZero(imgThresholded2);
 
-		inRange(imgHSV, Scalar(170, 60, 90), Scalar(180, 140, 200),
-				imgThresholded); //Threshold the image
-		highCount = cv::countNonZero(imgThresholded) + highCount;
 
-		cout << highCount << endl;
-		if (highCount > 100) //  为真，记录
-				{
-			circles_result[j][0] = circles[i][0];
-			circles_result[j][1] = circles[i][1];
-			circles_result[j][2] = circles[i][2];
-			j++;
-		}
+				   //与环形面积作比较
+				   S=3.14159*radius*radius;
 
-	}
+				   if(highCount/S>0.6)
+				   {
+					   cout <<highCount/S << endl;
+					   circles_result[j][0]=circles[i][0];
+					   circles_result[j][1]=circles[i][1];
+					   circles_result[j][2]=circles[i][2];
+					   j++;
+
+				   }
+
+			   }
+
 	/***********************************************************************************/
 
-	/*******************************画出检测到的圆*************************************/
-	cout << "i=\tx=\ty=\tr=" << endl;
 
+	/*******************************画出检测到的圆*************************************/
+	if (j>=0)
+	location_count =sprintf( result, "%d,",j );
 	for (int i = 0; i < j; i++) //把霍夫变换检测出的圆画出来
 			{
-		Point center(cvRound(circles_result[i][0]),
-				cvRound(circles_result[i][1]));
-		radius = cvRound(circles_result[i][2]);
+//		Point center(cvRound(circles_result[i][0]),
+//				cvRound(circles_result[i][1]));
+//		radius = cvRound(circles_result[i][2]);
 
-		circle(frame, center, 2, Scalar(240, 40, 0), -1, 8, 0);
-		circle(frame, center, radius, Scalar(240, 40, 0), -1, 8, 0);
+//		circle(frame, center, 2, Scalar(240, 40, 0), -1, 8, 0);
+//		circle(frame, center, radius, Scalar(240, 40, 0), 3, 8, 0);
 
-		cout << i + 1 << "\t" << cvRound(circles_result[i][0]) << "\t"
+	    location_count += sprintf( result+location_count, "%.0f,%.0f,%.0f,", circles_result[i][0],circles_result[i][1],circles_result[i][2] );
+
+/*//		cout << i + 1 << "\t" << cvRound(circles_result[i][0]) << "\t"
 				<< cvRound(circles_result[i][1]) << "\t"
-				<< cvRound(circles_result[i][2]) << endl; //在控制台输出圆心坐标和半径
+				<< cvRound(circles_result[i][2]) << endl;*/ //在控制台输出圆心坐标和半径
 	}
 
 //	imwrite("result.jpg", frame);
@@ -132,5 +154,19 @@ JNIEXPORT jstring JNICALL Java_com_diwen_android_opencv_DetectionBased_nativeRec
 //
 //	code = (char) waitKey();
 
-	return env->NewStringUTF("Hello from JNI!");
+	jstring      str;
+	jobjectArray args = 0;
+	jsize        len = 1;
+//	const char* sa[] = result;
+
+
+	const char* sa= result;
+	args = (env)->NewObjectArray(len, (env)->FindClass("java/lang/String"), 0);
+	for(int i = 0; i < len; i++)
+	    {
+	        str = (env)->NewStringUTF(sa);
+	        (env)->SetObjectArrayElement(args, i, str);
+	    }
+	 return args;
+	//return env->NewStringUTF("Hello from JNI!");*/
 }
