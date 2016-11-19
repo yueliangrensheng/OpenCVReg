@@ -9,6 +9,7 @@
 #include <opencv2/objdetect.hpp>
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/opencv.hpp"
+#include "../../../../../../software/android_sdk/ndk-bundle/platforms/android-14/arch-mips/usr/include/jni.h"
 #include <iostream>
 
 #include <string>

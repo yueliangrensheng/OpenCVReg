@@ -20,7 +20,7 @@
 	  include /Users/zhaishaoping/Documents/work/OpenCV/OpenCV-android-sdk/sdk/native/jni/OpenCV.mk
 	endif
 
-	LOCAL_SRC_FILES  := DetectionBased.cpp DetectionBasedTracker_jni.cpp #jni文件夹下的cpp文件，其中的src说明我的jni下还有个子文件夹名字是“src”，这块替换成自己的源码文件就ok了
+	LOCAL_SRC_FILES  := DetectionBased.cpp #DetectionBasedTracker_jni.cpp #jni文件夹下的cpp文件，其中的src说明我的jni下还有个子文件夹名字是“src”，这块替换成自己的源码文件就ok了
 	LOCAL_C_INCLUDES += $(LOCAL_PATH)
 	LOCAL_LDLIBS     += -llog -ldl
 

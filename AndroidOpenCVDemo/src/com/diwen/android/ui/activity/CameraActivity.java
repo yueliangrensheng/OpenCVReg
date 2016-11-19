@@ -4,25 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.json.JSONObject;
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 import com.diwen.android.R;
 import com.diwen.android.bean.LineData;
 import com.diwen.android.opencv.DetectionBased;
-import com.diwen.android.opencv.DetectionBasedTracker;
 import com.diwen.android.widget.CameraBridgeViewBase;
 import com.diwen.android.widget.CameraBridgeViewBase.CvCameraViewFrame;
 import com.diwen.android.widget.CameraBridgeViewBase.CvCameraViewListener2;
@@ -31,14 +24,9 @@ import com.diwen.android.widget.CameraContainer;
 import com.diwen.android.widget.CustomLineView;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -55,7 +43,6 @@ public class CameraActivity extends Activity {
 	private Mat mGray;
 	private File mCascadeFile;
 	private CascadeClassifier mJavaDetector;
-	private DetectionBasedTracker mNativeDetector;
 	private DetectionBased mDetectionBased;
 
 	private float mRelativeFaceSize = 0.2f;

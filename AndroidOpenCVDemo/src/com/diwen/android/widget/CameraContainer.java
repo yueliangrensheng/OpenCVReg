@@ -212,7 +212,7 @@ public class CameraContainer extends FrameLayout implements ICameraOperation, IA
 		}
 		float x = event.getX(0) - event.getX(1);
 		float y = event.getY(0) - event.getY(1);
-		return FloatMath.sqrt(x * x + y * y);
+		return (float) Math.sqrt(x * x + y * y);// Android 6.0+ 中的FloatMath 过时了， 使用数学上的Math 代替
 	}
 
 	/**
