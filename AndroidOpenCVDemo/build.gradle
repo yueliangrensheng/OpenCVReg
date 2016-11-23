@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar',excludes: ['android-support-v4.jar',])
+    compile fileTree(dir: 'libs', include: '*.jar',excludes: ['android-support-v4.jar','butterknife-7.0.1.jar'])
     compile project(':OpenCVReg:OpenCV Library - 3.1.0')
     compile rootProject.ext.dependencies['appcompat-v7']
+    compile rootProject.ext.dependencies['butterknife']
 }
 
 android {

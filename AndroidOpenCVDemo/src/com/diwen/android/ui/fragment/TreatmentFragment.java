@@ -13,12 +13,12 @@ import com.diwen.android.R;
  * Created by zhaishaoping on 20/11/2016.
  */
 
-public class TreatmentFragment extends Fragment {
+public class TreatmentFragment extends BaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.layout_fragment_treatment,container,false);
+        View inflate = inflater.inflate(R.layout.layout_fragment_treatment, container, false);
         return inflate;
     }
 }

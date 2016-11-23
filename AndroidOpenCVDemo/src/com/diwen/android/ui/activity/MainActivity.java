@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.diwen.android.R;
 import com.diwen.android.bean.LineData;
 import com.diwen.android.opencv.DetectionBased;
+import com.diwen.android.ui.fragment.BaseFragment;
 import com.diwen.android.ui.fragment.PatientDataFragment;
 import com.diwen.android.ui.fragment.PreTreatFragment;
 import com.diwen.android.ui.fragment.TreatmentFragment;
@@ -25,20 +27,37 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by zhaishaoping on 20/11/2016.
  */
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, BaseFragment.OnCameraShowLinstener {
 
     private FragmentManager mFragmentManager;
-    private TextView tvPatientData, tvPreTreatment, tvTreatment;
+
+    @Bind(R.id.main_tv_patient_data)
+    TextView tvPatientData;
+    @Bind(R.id.main_tv_pre_treatment)
+    TextView tvPreTreatment;
+    @Bind(R.id.main_tv_treatment)
+    TextView tvTreatment;
 
 
     //投影区
-    private CameraContainer mCameraContainer;
+    @Bind(R.id.cameraContainer)
+    CameraContainer mCameraContainer;
+    @Bind(R.id.main_content_camera)
+    LinearLayout ll_content_camera;
+
     private DetectionBased mDetectionBased;
     private Mat mRgba;
+    /**
+     * 当前tag的角标
+     */
+    private int currentPosition = 0;
 
     static {
         System.loadLibrary("OpenCV");
@@ -55,25 +74,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.layout_main);
-
-        tvPatientData = (TextView) findViewById(R.id.main_tv_patient_data);
-        tvPreTreatment = (TextView) findViewById(R.id.main_tv_pre_treatment);
-        tvTreatment = (TextView) findViewById(R.id.main_tv_treatment);
+        ButterKnife.bind(this);
 
         tvPatientData.setOnClickListener(this);
         tvPreTreatment.setOnClickListener(this);
         tvTreatment.setOnClickListener(this);
 
-
-        mCameraContainer = (CameraContainer) findViewById(R.id.cameraContainer);
-        mCameraContainer.setVisibility(CameraBridgeViewBase.VISIBLE);
+        // camera
+        setCameraVisible(false);
         mCameraContainer.setCvCameraViewListener(mCvCameraViewListener);
 
 
         mFragmentManager = getSupportFragmentManager();
 
         //首页面
-        exchangeFragment(new PatientDataFragment());
+        PatientDataFragment patientDataFragment = new PatientDataFragment();
+        patientDataFragment.setOnCameraShowLinstener(this);
+        exchangeFragment(patientDataFragment);
 
 
     }
@@ -86,27 +103,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Fragment fragment = null;
-        switch (view.getId()) {
+        if (currentPosition == view.getId()) {
+            return;
+        }
+        BaseFragment fragment = null;
+        int viewId = view.getId();
+        switch (viewId) {
             case R.id.main_tv_patient_data:
                 fragment = new PatientDataFragment();
-                exchangeFragment(fragment);
                 break;
             case R.id.main_tv_pre_treatment:
                 fragment = new PreTreatFragment();
-                exchangeFragment(fragment);
                 break;
             case R.id.main_tv_treatment:
                 fragment = new TreatmentFragment();
-                exchangeFragment(fragment);
-
                 break;
 
             default:
 
                 break;
         }
-
+        fragment.setOnCameraShowLinstener(this);
+        exchangeFragment(fragment);
+        currentPosition = viewId;
     }
 
     private long exitTime = 0;
@@ -219,5 +238,49 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 设置Camera区域显示与否
+     *
+     * @param isCameraVisible true：显示Camera；false：隐藏Camera
+     */
+    public void setCameraVisible(boolean isCameraVisible) {
+        ll_content_camera.setVisibility(isCameraVisible ? View.VISIBLE : View.GONE);
+        mCameraContainer.setVisibility(isCameraVisible ? CameraBridgeViewBase.VISIBLE : CameraBridgeViewBase.INVISIBLE);
+    }
 
+
+    @Override
+    public void onCameraShow(boolean isShow) {
+        setCameraVisible(isShow);
+    }
+
+
+    /**
+     * 设置放大缩小
+     * @param vZoom
+     */
+    private int setZoom(int vZoom){
+        int zoom = mCameraContainer.getZoom();
+        if (vZoom >= 1 || vZoom <= -1) {
+            zoom += +vZoom;
+            // zoom不能超出范围
+            if (zoom > mCameraContainer.getMaxZoom())
+                zoom = mCameraContainer.getMaxZoom();
+            if (zoom < 0)
+                zoom = 0;
+            mCameraContainer.setZoom(zoom);
+        }
+        return zoom;
+    }
+
+    @Override
+    public int onCameraZoomMinus() {
+        int zoom = setZoom(-1);
+        return zoom;
+    }
+
+    @Override
+    public int onCameraZoomAdd() {
+        return setZoom(1);
+    }
 }
