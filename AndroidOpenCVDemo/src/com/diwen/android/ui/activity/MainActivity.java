@@ -1,5 +1,6 @@
 package com.diwen.android.ui.activity;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.diwen.android.ui.fragment.BaseFragment;
 import com.diwen.android.ui.fragment.PatientDataFragment;
 import com.diwen.android.ui.fragment.PreTreatFragment;
 import com.diwen.android.ui.fragment.TreatmentFragment;
+import com.diwen.android.util.SystemUtil;
 import com.diwen.android.widget.CameraBridgeViewBase;
 import com.diwen.android.widget.CameraContainer;
 
@@ -44,7 +46,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     TextView tvPreTreatment;
     @Bind(R.id.main_tv_treatment)
     TextView tvTreatment;
-
 
     //投影区
     @Bind(R.id.cameraContainer)
@@ -75,13 +76,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         setContentView(R.layout.layout_main);
         ButterKnife.bind(this);
-
+        if(tvPatientData == null){
+        	tvPatientData = (TextView) findViewById(R.id.main_tv_patient_data);
+        }
+        if(tvPreTreatment == null){
+        	tvPreTreatment = (TextView) findViewById(R.id.main_tv_pre_treatment);
+        }
+        if(tvTreatment == null){
+        	tvTreatment = (TextView) findViewById(R.id.main_tv_treatment);
+        }
+        if(mCameraContainer == null){
+        	mCameraContainer = (CameraContainer) findViewById(R.id.cameraContainer);
+        }
+        if(ll_content_camera == null){
+        	ll_content_camera = (LinearLayout) findViewById(R.id.main_content_camera);
+        }
+        
         tvPatientData.setOnClickListener(this);
         tvPreTreatment.setOnClickListener(this);
         tvTreatment.setOnClickListener(this);
-
+        
         // camera
         setCameraVisible(false);
+       
         mCameraContainer.setCvCameraViewListener(mCvCameraViewListener);
 
 
@@ -94,7 +111,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
 
     }
-
     private void exchangeFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_content, fragment);
@@ -149,7 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             mRgba = inputFrame.rgba();
 
-            if ((System.currentTimeMillis() - exitTime) > 400) {
+            /*if ((System.currentTimeMillis() - exitTime) > 400) {
                 long startTime = System.currentTimeMillis();
                 String[] location = mDetectionBased.recognized(mRgba);
                 long endTime = System.currentTimeMillis();
@@ -162,9 +178,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
                 exitTime = System.currentTimeMillis();
 
-				 /*final Bitmap bmp =Bitmap.createBitmap( mRgba.width(),  mRgba.height(),  Bitmap.Config.RGB_565);
+				 final Bitmap bmp =Bitmap.createBitmap( mRgba.width(),  mRgba.height(),  Bitmap.Config.RGB_565);
                  //saveBitmap(bmp);
-			       covMat2bm(mRgba,bmp);  */
+			       covMat2bm(mRgba,bmp);  
                 runOnUiThread(new Runnable() {
                                   public void run() {
                                       // vImageTest.setImageBitmap(bmp);
@@ -184,7 +200,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             } else {
 
-            }
+            }*/
             return mRgba;
         }
     };
@@ -253,7 +269,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void onCameraShow(boolean isShow) {
         setCameraVisible(isShow);
     }
-
+    @Override
+    public int onChangeTab(int type) {
+    	// TODO Auto-generated method stub
+    	switch (type) {
+		case 1:  //1是点中了ultrasound
+			tvTreatment.setVisibility(View.GONE);
+			break;
+		case 2:
+			tvTreatment.setVisibility(View.VISIBLE);
+			break;
+		default:
+			break;
+		}
+    	return 0;
+    }
 
     /**
      * 设置放大缩小

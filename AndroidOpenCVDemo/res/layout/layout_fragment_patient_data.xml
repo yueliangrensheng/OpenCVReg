@@ -5,20 +5,303 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <include layout="@layout/layout_fragment_left_action" />
-
+    <include layout="@layout/layout_fragment_patient_left_action" />
+  	<ScrollView 
+  	    android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/fragment_content"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="content" />
-
+        android:background="@drawable/down_2"
+        android:orientation="vertical"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        >
+        <LinearLayout 
+            android:layout_width="match_parent" 
+            android:layout_height="30dp"
+            android:background="@drawable/down_4"
+            android:layout_marginTop="4dp"
+            >
+            <EditText
+		    	android:layout_marginLeft="6dp" 
+		     	android:layout_width="match_parent"
+            	android:layout_height="100dp"
+           		android:background="@android:color/white"
+           		android:textSize="18sp"
+		    />
+        </LinearLayout>
+		
+		<LinearLayout 
+		    android:layout_width="match_parent" 
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:background="@drawable/down_3"
+		    >
+		    <TextView 
+		        android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content"
+		    	android:text="Patient Detail"
+		    	android:layout_marginLeft="30dp" 
+		    	android:layout_marginTop="20dp"
+		    	android:textSize="18sp"
+		        />
+		    <LinearLayout 
+		         android:layout_width="match_parent" 
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal"
+		    	android:layout_gravity="center"
+		    	android:layout_marginLeft="20dp"
+		    	android:layout_marginRight="20dp"
+		        >
+		    <LinearLayout
+		        android:layout_width="0dp" 
+		    	android:layout_height="wrap_content"
+		    	android:orientation="vertical"
+		    	android:layout_marginLeft="10dp"
+		    	android:layout_marginRight="10dp"
+		    	android:layout_weight="1"
+		    	android:gravity="center"
+		        >
+		        <TextView 
+		            android:layout_width="wrap_content" 
+		    		android:layout_height="wrap_content"
+		    		android:text="First Name"
+		    		android:textSize="18sp"
+		            />
+			        <EditText 
+					     android:layout_width="match_parent"
+			            android:layout_height="30dp"
+			           	android:background="@android:color/white"
+			           	android:textSize="18sp"
+				    />
+		    </LinearLayout>
+		    <LinearLayout
+		        android:layout_width="0dp" 
+		    	android:layout_height="wrap_content"
+		    	android:orientation="vertical"
+		    	android:layout_marginRight="10dp"
+		    	android:layout_weight="1"
+		    	android:gravity="center"
+		        >
+		        <TextView 
+		            android:layout_width="wrap_content" 
+		    		android:layout_height="wrap_content"
+		    		android:text="Last Name"
+		    		android:textSize="18sp"
+		            />
+		        <EditText 
+				     android:layout_width="match_parent"
+		            android:layout_height="30dp"
+		           	android:background="@android:color/white"
+		           	android:textSize="18sp"
+				    />
+		    </LinearLayout>
+		    <LinearLayout
+		        android:layout_width="0dp" 
+		    	android:layout_height="wrap_content"
+		    	android:orientation="vertical"
+		    	android:layout_marginRight="10dp"
+		    	android:layout_weight="1"
+		    	android:gravity="center"
+		        >
+		        <TextView 
+		            android:layout_width="wrap_content" 
+		    		android:layout_height="wrap_content"
+		    		android:text="ID"
+		    		android:textSize="18sp"
+		            />
+		        <EditText 
+				     android:layout_width="match_parent"
+		            android:layout_height="30dp"
+		           	android:background="@android:color/white"
+		           	android:textSize="18sp"
+				    />
+		    </LinearLayout>
+		    <LinearLayout
+		        android:layout_width="0dp" 
+		    	android:layout_height="wrap_content"
+		    	android:orientation="vertical"
+		    	android:layout_marginRight="10dp"
+		    	android:layout_weight="1"
+		    	android:gravity="center"
+		        >
+		        <TextView 
+		            android:layout_width="wrap_content" 
+		    		android:layout_height="wrap_content"
+		    		android:text="Home Phone"
+		    		android:textSize="18sp"
+		            />
+		        <EditText 
+				     android:layout_width="match_parent"
+		            android:layout_height="30dp"
+		           	android:background="@android:color/white"
+		           	android:textSize="18sp"
+				    />
+		    </LinearLayout>
+		    </LinearLayout>
+		     <EditText 
+		         android:layout_marginTop="6dp"
+		         android:layout_marginLeft="16dp"
+		         android:layout_marginRight="16dp"
+			    android:layout_width="match_parent"
+	            android:layout_height="116dp"
+	           	android:background="@android:color/white"
+	           	android:textSize="18sp"
+	           	
+			   />
+		    <LinearLayout
+		        android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content"
+		    	android:orientation="horizontal"
+		    	android:layout_marginLeft="16dp"
+		    	android:layout_marginTop="10dp"
+		    	android:layout_marginBottom="10dp"
+		    			    
+		        >
+		    	<CheckBox android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        />
+		        <TextView 
+		            android:layout_width="wrap_content" 
+		    		android:layout_height="wrap_content"
+		    		android:text="Display Patient Details"
+		    		android:textSize="20sp"
+		            />
+		        
+		    </LinearLayout>
+		</LinearLayout>
+		
+		<LinearLayout
+		     android:layout_width="match_parent" 
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical"
+	    	android:background="@drawable/down_4"
+	    	android:layout_marginBottom="2dp"
+	    	
+		    >
+		    <LinearLayout 
+		        android:layout_width="match_parent" 
+	    		android:layout_height="wrap_content"
+	    		android:orientation="horizontal"	    	
+	    		android:weightSum="4"
+		        >
+		    <ImageView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/new_"
+		        android:layout_weight="1"
+		        />
+		    <ImageView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/edit"
+		         android:layout_weight="1"
+		        />
+		     <ImageView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"		   
+		        android:src="@drawable/export"
+		         android:layout_weight="1"
+		        />
+		     <ImageView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/query"
+		         android:layout_weight="1"
+		        />
+		     </LinearLayout>
+		     <TextView 
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="History"		       
+		         android:layout_marginLeft="16dp"
+		         android:textSize="18sp"
+		         />
+		      <EditText 
+		         android:layout_marginTop="6dp"
+		         android:layout_marginLeft="16dp"
+		         android:layout_marginRight="16dp"
+			    android:layout_width="match_parent"
+	            android:layout_height="200dp"
+	           	android:background="@android:color/white"
+	           	android:textSize="18sp"
+			   />
+		      <TextView android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:text="Details"
+		         android:layout_marginLeft="16dp"
+		         android:textSize="18sp"
+		         />
+		      <LinearLayout 
+		            android:layout_width="match_parent" 
+	    			android:layout_height="wrap_content"
+	    			android:orientation="horizontal"
+	    			android:weightSum="3"
+	    			android:layout_marginBottom="10dp"
+		          >
+		          <LinearLayout
+			        android:layout_width="wrap_content" 
+			    	android:layout_height="wrap_content"
+			    	android:orientation="horizontal"
+			    	android:layout_marginRight="10dp"
+			    	android:layout_weight="1"
+			    	android:gravity="center"
+			        >
+			        <TextView 
+			            android:layout_width="wrap_content" 
+			    		android:layout_height="wrap_content"
+			    		android:text="Totail Patients"
+			    		android:textSize="18sp"
+			            />
+			        <EditText 
+					     android:layout_width="140dp"
+			            android:layout_height="100dp"
+			           	android:background="@android:color/white"
+			           	android:textSize="18sp"
+					    />
+			          </LinearLayout>
+			          <LinearLayout
+			        android:layout_width="wrap_content" 
+			    	android:layout_height="wrap_content"
+			    	android:orientation="horizontal"
+			    	android:layout_marginRight="10dp"
+			    	android:layout_weight="1"
+			    	android:gravity="center"
+			        >
+			        <TextView 
+			            android:layout_width="wrap_content" 
+			    		android:layout_height="wrap_content"
+			    		android:text="Ultrasound Patients"
+			    		android:textSize="18sp"
+			            />
+			        <EditText 
+					     android:layout_width="140dp"
+			            android:layout_height="100dp"
+			           	android:background="@android:color/white"
+			           	android:textSize="18sp"
+					    />
+			          </LinearLayout>
+			          <LinearLayout
+			        android:layout_width="wrap_content" 
+			    	android:layout_height="wrap_content"
+			    	android:orientation="horizontal"
+			    	android:layout_marginRight="10dp"
+			    	android:layout_weight="1"
+			    	android:gravity="center"
+			        >
+			        <TextView 
+			            android:layout_width="wrap_content" 
+			    		android:layout_height="wrap_content"
+			    		android:text="RF Treatments"
+			    		android:textSize="18sp"
+			            />
+			        <EditText 
+					     android:layout_width="140dp"
+			            android:layout_height="100dp"
+			           	android:background="@android:color/white"
+			           	android:textSize="18sp"
+					    />
+			          </LinearLayout>
+		      </LinearLayout>
+		</LinearLayout>
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

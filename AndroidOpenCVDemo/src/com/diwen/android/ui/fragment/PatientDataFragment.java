@@ -1,5 +1,6 @@
 package com.diwen.android.ui.fragment;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,11 +20,11 @@ import butterknife.Bind;
 
 public class PatientDataFragment extends BaseFragment implements View.OnClickListener {
 
-    @Bind(R.id.action_minus)
-    ImageView action_minus;
-    @Bind(R.id.action_add)
-    ImageView action_add;
-    @Bind(R.id.action_zoom)
+  /*  @Bind(R.id.action_minus)
+    ImageView action_minus;*/
+   /* @Bind(R.id.action_add)
+    ImageView action_add;*/
+    /*@Bind(R.id.action_zoom)
     TextView action_zoom_show;
     @Bind(R.id.action_selected_body_part)
     ImageView action_selected_body_part;
@@ -36,8 +37,16 @@ public class PatientDataFragment extends BaseFragment implements View.OnClickLis
     @Bind(R.id.action_link_line)
     ImageView action_link_line;
     @Bind(R.id.action_back)
-    ImageView action_back;
-
+    ImageView action_back;*/
+	@Bind(R.id.iv_ultransound)
+	ImageView vUltransoud;
+	@Bind(R.id.iv_rf)
+	ImageView vRf;
+	@Bind(R.id.ultransoud_right)
+	ImageView ultransoudMark;
+	@Bind(R.id.rf_right)
+	ImageView rfMark;
+	
     @Bind(R.id.fragment_content)
     LinearLayout fragment_content;
 
@@ -57,24 +66,38 @@ public class PatientDataFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void registerListener() {
-        action_minus.setOnClickListener(this);
+        /*action_minus.setOnClickListener(this);
         action_add.setOnClickListener(this);
         action_selected_body_part.setOnClickListener(this);
         action_selected_model.setOnClickListener(this);
         action_reg_main.setOnClickListener(this);
         action_reg_red_dot.setOnClickListener(this);
         action_link_line.setOnClickListener(this);
-        action_back.setOnClickListener(this);
+        action_back.setOnClickListener(this);*/
+    	vUltransoud.setOnClickListener(this);
+    	vRf.setOnClickListener(this);
     }
 
     private void initData() {
         //显示Camera区
-        onCameraShowLinstener.onCameraShow(true);
+        onCameraShowLinstener.onCameraShow(false);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+    	switch (view.getId()) {
+		case R.id.iv_ultransound:
+			changeUltransoud();
+			onCameraShowLinstener.onChangeTab(1);
+			break;
+		case R.id.iv_rf:
+			changeRf();
+			onCameraShowLinstener.onChangeTab(2);
+			break;
+		default:
+			break;
+		}
+       /* switch (view.getId()) {
             case R.id.action_minus://缩放
                 int zoomMinusValue = onCameraShowLinstener.onCameraZoomMinus();
                 action_zoom_show.setText(String.valueOf(zoomMinusValue));
@@ -102,7 +125,15 @@ public class PatientDataFragment extends BaseFragment implements View.OnClickLis
             default:
 
                 break;
-        }
+        }*/
 
+    }
+    private void changeRf(){
+    	vRf.setVisibility(View.VISIBLE);
+    	ultransoudMark.setVisibility(View.GONE);
+    }
+    private void changeUltransoud(){
+    	vRf.setVisibility(View.GONE);
+    	ultransoudMark.setVisibility(View.VISIBLE);
     }
 }
