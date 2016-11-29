@@ -39,5 +39,7 @@ public class BaseFragment extends Fragment {
         int onCameraZoomMinus();
 
         int onCameraZoomAdd();
+        
+        int onChangeTab(int type);
     }
 }
