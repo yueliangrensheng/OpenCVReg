@@ -48,6 +48,7 @@
 	        <ImageView 
 	            android:layout_marginTop="26dp"
 	            android:layout_marginRight="26dp"
+	            
 	            android:id="@+id/rf_right"
 			      android:layout_width="30dp" 
 			    android:layout_height="32dp"
