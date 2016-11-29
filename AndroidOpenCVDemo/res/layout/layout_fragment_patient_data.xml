@@ -12,22 +12,20 @@
     <LinearLayout
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="796dp"
         android:background="@drawable/down_2"
         android:orientation="vertical"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:padding="14dp"      
         >
         <LinearLayout 
             android:layout_width="match_parent" 
-            android:layout_height="30dp"
-            android:background="@drawable/down_4"
-            android:layout_marginTop="4dp"
+            android:layout_height="40dp"
             >
             <EditText
 		    	android:layout_marginLeft="6dp" 
+		    	android:layout_marginRight="6dp"
 		     	android:layout_width="match_parent"
-            	android:layout_height="100dp"
+            	android:layout_height="40dp"
            		android:background="@android:color/white"
            		android:textSize="18sp"
 		    />
@@ -38,13 +36,14 @@
 		    android:layout_height="wrap_content"
 		    android:orientation="vertical"
 		    android:background="@drawable/down_3"
+		    android:layout_marginTop="14dp"
 		    >
 		    <TextView 
 		        android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content"
 		    	android:text="Patient Detail"
 		    	android:layout_marginLeft="30dp" 
-		    	android:layout_marginTop="20dp"
+		    	android:layout_marginTop="18dp"
 		    	android:textSize="18sp"
 		        />
 		    <LinearLayout 
@@ -70,8 +69,9 @@
 		    		android:text="First Name"
 		    		android:textSize="18sp"
 		            />
-			        <EditText 
-					     android:layout_width="match_parent"
+			        <EditText
+			            android:layout_marginTop="6dp" 
+					     android:layout_width="165dp"
 			            android:layout_height="30dp"
 			           	android:background="@android:color/white"
 			           	android:textSize="18sp"
@@ -92,7 +92,8 @@
 		    		android:textSize="18sp"
 		            />
 		        <EditText 
-				     android:layout_width="match_parent"
+		            android:layout_marginTop="6dp" 
+				     android:layout_width="165dp"
 		            android:layout_height="30dp"
 		           	android:background="@android:color/white"
 		           	android:textSize="18sp"
@@ -113,7 +114,8 @@
 		    		android:textSize="18sp"
 		            />
 		        <EditText 
-				     android:layout_width="match_parent"
+		            android:layout_marginTop="6dp" 
+				     android:layout_width="165dp"
 		            android:layout_height="30dp"
 		           	android:background="@android:color/white"
 		           	android:textSize="18sp"
@@ -134,7 +136,8 @@
 		    		android:textSize="18sp"
 		            />
 		        <EditText 
-				     android:layout_width="match_parent"
+		            android:layout_marginTop="6dp" 
+				     android:layout_width="165dp"
 		            android:layout_height="30dp"
 		           	android:background="@android:color/white"
 		           	android:textSize="18sp"
@@ -142,11 +145,11 @@
 		    </LinearLayout>
 		    </LinearLayout>
 		     <EditText 
-		         android:layout_marginTop="6dp"
-		         android:layout_marginLeft="16dp"
-		         android:layout_marginRight="16dp"
+		         android:layout_marginTop="14dp"
+		         android:layout_marginLeft="24dp"
+		         android:layout_marginRight="24dp"
 			    android:layout_width="match_parent"
-	            android:layout_height="116dp"
+	            android:layout_height="164dp"
 	           	android:background="@android:color/white"
 	           	android:textSize="18sp"
 	           	
@@ -167,7 +170,7 @@
 		            android:layout_width="wrap_content" 
 		    		android:layout_height="wrap_content"
 		    		android:text="Display Patient Details"
-		    		android:textSize="20sp"
+		    		android:textSize="18sp"
 		            />
 		        
 		    </LinearLayout>
@@ -187,23 +190,23 @@
 	    		android:orientation="horizontal"	    	
 	    		android:weightSum="4"
 		        >
-		    <ImageView android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		    <ImageView android:layout_width="175dp"
+		        android:layout_height="48dp"
 		        android:src="@drawable/new_"
 		        android:layout_weight="1"
 		        />
-		    <ImageView android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		    <ImageView android:layout_width="175dp"
+		        android:layout_height="48dp"
 		        android:src="@drawable/edit"
 		         android:layout_weight="1"
 		        />
-		     <ImageView android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"		   
+		     <ImageView android:layout_width="175dp"
+		        android:layout_height="48dp"		   
 		        android:src="@drawable/export"
 		         android:layout_weight="1"
 		        />
-		     <ImageView android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		     <ImageView android:layout_width="175dp"
+		        android:layout_height="48dp"
 		        android:src="@drawable/query"
 		         android:layout_weight="1"
 		        />
@@ -212,22 +215,24 @@
 		         android:layout_width="wrap_content"
 		         android:layout_height="wrap_content"
 		         android:text="History"		       
-		         android:layout_marginLeft="16dp"
+		         android:layout_marginLeft="26dp"
+		         android:layout_marginTop="10dp"
 		         android:textSize="18sp"
 		         />
 		      <EditText 
 		         android:layout_marginTop="6dp"
-		         android:layout_marginLeft="16dp"
-		         android:layout_marginRight="16dp"
+		         android:layout_marginLeft="26dp"
+		         android:layout_marginRight="26dp"
 			    android:layout_width="match_parent"
-	            android:layout_height="200dp"
+	            android:layout_height="190dp"
 	           	android:background="@android:color/white"
 	           	android:textSize="18sp"
 			   />
 		      <TextView android:layout_width="wrap_content"
 		         android:layout_height="wrap_content"
 		         android:text="Details"
-		         android:layout_marginLeft="16dp"
+		         android:layout_marginLeft="26dp"
+		         android:layout_marginTop="10dp"
 		         android:textSize="18sp"
 		         />
 		      <LinearLayout 
@@ -235,7 +240,7 @@
 	    			android:layout_height="wrap_content"
 	    			android:orientation="horizontal"
 	    			android:weightSum="3"
-	    			android:layout_marginBottom="10dp"
+	    			android:layout_marginBottom="20dp"
 		          >
 		          <LinearLayout
 			        android:layout_width="wrap_content" 
@@ -252,8 +257,9 @@
 			    		android:textSize="18sp"
 			            />
 			        <EditText 
-					     android:layout_width="140dp"
-			            android:layout_height="100dp"
+			            android:layout_marginLeft="10dp"
+					     android:layout_width="88dp"
+			            android:layout_height="30dp"
 			           	android:background="@android:color/white"
 			           	android:textSize="18sp"
 					    />
@@ -273,8 +279,9 @@
 			    		android:textSize="18sp"
 			            />
 			        <EditText 
-					     android:layout_width="140dp"
-			            android:layout_height="100dp"
+			            android:layout_marginLeft="10dp"
+					     android:layout_width="88dp"
+			            android:layout_height="30dp"
 			           	android:background="@android:color/white"
 			           	android:textSize="18sp"
 					    />
@@ -294,8 +301,9 @@
 			    		android:textSize="18sp"
 			            />
 			        <EditText 
-					     android:layout_width="140dp"
-			            android:layout_height="100dp"
+			            android:layout_marginLeft="10dp"
+					     android:layout_width="88dp"
+			            android:layout_height="30dp"
 			           	android:background="@android:color/white"
 			           	android:textSize="18sp"
 					    />

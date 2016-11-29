@@ -73,25 +73,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 隐藏状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+              
         setContentView(R.layout.layout_main);
-        ButterKnife.bind(this);
-        if(tvPatientData == null){
-        	tvPatientData = (TextView) findViewById(R.id.main_tv_patient_data);
-        }
-        if(tvPreTreatment == null){
-        	tvPreTreatment = (TextView) findViewById(R.id.main_tv_pre_treatment);
-        }
-        if(tvTreatment == null){
-        	tvTreatment = (TextView) findViewById(R.id.main_tv_treatment);
-        }
-        if(mCameraContainer == null){
-        	mCameraContainer = (CameraContainer) findViewById(R.id.cameraContainer);
-        }
-        if(ll_content_camera == null){
-        	ll_content_camera = (LinearLayout) findViewById(R.id.main_content_camera);
-        }
-        
+        ButterKnife.bind(this);       
         tvPatientData.setOnClickListener(this);
         tvPreTreatment.setOnClickListener(this);
         tvTreatment.setOnClickListener(this);

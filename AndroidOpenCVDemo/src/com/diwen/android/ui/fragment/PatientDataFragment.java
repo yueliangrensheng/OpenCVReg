@@ -1,6 +1,6 @@
 package com.diwen.android.ui.fragment;
 
-import android.opengl.Visibility;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 
 import com.diwen.android.R;
 
@@ -129,11 +129,12 @@ public class PatientDataFragment extends BaseFragment implements View.OnClickLis
 
     }
     private void changeRf(){
-    	vRf.setVisibility(View.VISIBLE);
+    	rfMark.setVisibility(View.VISIBLE);
     	ultransoudMark.setVisibility(View.GONE);
     }
     private void changeUltransoud(){
-    	vRf.setVisibility(View.GONE);
+    	rfMark.setVisibility(View.GONE);
     	ultransoudMark.setVisibility(View.VISIBLE);
+    	
     }
 }
